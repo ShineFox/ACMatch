@@ -44,14 +44,14 @@ net_arg.add_argument(
 # Data
 data_arg = add_argument_group("Data")
 data_arg.add_argument(
-    "--data_te", type=str, default='/data/mss/OANet_old/data_dump/yfcc-sift-2000-test.hdf5', help=""
+    "--data_te", type=str, default='../data_dump/yfcc-sift-2000-test.hdf5', help=""
     "name of the unseen dataset for test")
 
 # -----------------------------------------------------------------------------
 # Filtering
 filter_arg = add_argument_group("Test")
 filter_arg.add_argument(
-    "--model_file", type=str, default="/data2/ashine/AConvNet/ConvMatch_lrdecay_weightCNN_cnn_grid/model/convmatch", help=""
+    "--model_file", type=str, default="../model/acmatch", help=""
     "model file for test")
 filter_arg.add_argument(
     "--gpu_id", type=str, default='3', help='id(s) for CUDA_VISIBLE_DEVICES')
