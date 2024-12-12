@@ -12,10 +12,10 @@ For relative pose estimation, you can download our pre-trained models [here](htt
 
     CUDA_VISIBLE_DEVICES=0 python test.py
 
-<!-- ## Training
+## Training
 For training the model with YFCC100M, you need to download the training datasets as same as [OANet](https://github.com/zjhthu/OANet), and next you can use the following command to train your own model:  
 
-    CUDA_VISIBLE_DEVICES=0 python train.py -->
+    CUDA_VISIBLE_DEVICES=0 python train.py
 
 ## Citation
 If you find our work useful, plz cite  
