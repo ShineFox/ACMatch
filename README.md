@@ -1,4 +1,14 @@
-# ACMatch
+# <p align="center">ACMatch: Improving context capture for two-view correspondence learning via adaptive convolution</p>
+
+<div align="center">
+  <a href="https://scholar.google.com/citations?user=tU_vwPwAAAAJ&hl=zh-CN">Xiang Fang</a><sup>a</sup>, 
+  <a href="https://scholar.google.com/citations?user=h-9Ub_cAAAAJ&hl=zh-CN&oi=ao">Yifan Lu</a><sup>a</sup>, 
+  <a href="https://scholar.google.com/citations?hl=zh-CN&user=7f_tYK4AAAAJ">Shihua Zhang</a><sup>a</sup>, 
+  Yining Xie</a><sup>b</sup>, 
+  <a href="https://scholar.google.com/citations?user=73trMQkAAAAJ&hl=zh-CN&oi=ao">Jiayi Ma</a><sup>a</sup>
+  <p><sup>a</sup>Wuhan University,  <sup>b</sup>Northeast Forestry University</p>
+</div>
+
 ![Framework](https://github.com/ShineFox/ACMatch/blob/main/framework.png)  
 The official implementation of the ISPRS P&amp;RS paper "ACMatch: Improving context capture for two-view correspondence learning via adaptive convolution".
 
