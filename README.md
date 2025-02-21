@@ -32,6 +32,8 @@ For training the model with YFCC100M, you need to download the training datasets
 
     cd ./core
     CUDA_VISIBLE_DEVICES=0 python train.py
+### Visualization
+![visualization](https://github.com/ShineFox/ACMatch/blob/main/visualization.png)  
 
 ## Acknowledgement
 We have largely studied and borrowed from the following papers or code, and are very grateful for the inspiration these works have caused us:   
