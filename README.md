@@ -34,7 +34,7 @@ For training the model with YFCC100M, you need to download the training datasets
     CUDA_VISIBLE_DEVICES=0 python train.py
 
 ## Acknowledgement
-We have largely studied and borrowed from the following papers or code, and are very grateful for the inspiration these works have caused us: 
+We have largely studied and borrowed from the following papers or code, and are very grateful for the inspiration these works have caused us:   
 (1) OANet:  ICCV'19, [paper](https://openaccess.thecvf.com/content_ICCV_2019/papers/Zhang_Learning_Two-View_Correspondences_and_Geometry_Using_Order-Aware_Network_ICCV_2019_paper.pdf), [code](https://github.com/zjhthu/OANet);  
 (2) ConvMatch: AAAI'23, [paper](https://ojs.aaai.org/index.php/AAAI/article/view/25456), [code](https://github.com/SuhZhang/ConvMatch).
 
