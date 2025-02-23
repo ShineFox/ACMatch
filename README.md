@@ -9,7 +9,8 @@
   <p><sup>a</sup>Wuhan University,  <sup>b</sup>Northeast Forestry University</p>
 </div>
 
-![Framework](https://github.com/ShineFox/ACMatch/blob/main/framework.png)  
+![Framework](https://github.com/ShineFox/ACMatch/blob/main/framework.png).  
+
 The official implementation of the ISPRS P&amp;RS paper "[ACMatch: Improving context capture for two-view correspondence learning via adaptive convolution](https://www.sciencedirect.com/science/article/pii/S092427162400412X)".
 
 ## Environment
