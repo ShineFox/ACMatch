@@ -10,7 +10,7 @@
 </div>
 
 ![Framework](https://github.com/ShineFox/ACMatch/blob/main/framework.png)  
-The official implementation of the ISPRS P&amp;RS paper "ACMatch: Improving context capture for two-view correspondence learning via adaptive convolution".
+The official implementation of the ISPRS P&amp;RS paper "[ACMatch: Improving context capture for two-view correspondence learning via adaptive convolution](https://www.sciencedirect.com/science/article/pii/S092427162400412X)".
 
 ## Environment
 Please use Python 3.6, opencv-contrib-python (3.4.0.12) and Pytorch (>= 1.7.0). Other dependencies should be easily installed through pip or conda.
