@@ -31,41 +31,28 @@ def knn(x, k):
 
     return idx[:, :, :]
 
-class GraphFeatureModule(nn.Module):
-    def __init__(self, k=8): 
-        super().__init__()
-        self.k = k
-        self.conv = nn.Conv2d(128, 1, kernel_size=1)  
-
-    def forward(self, x, idx=None):
-        batch_size = x.size(0)
-        num_points = x.size(2)
-        x = x.view(batch_size, -1, num_points)
-        
-        if idx is None:
-            idx_out = knn(x, k=self.k) 
-        else:
-            idx_out = idx
-        
-        device = x.device
-        idx_base = torch.arange(0, batch_size, device=device).view(-1, 1, 1) * num_points
-        idx = idx_out + idx_base
-        idx = idx.view(-1)
-        
-        _, num_dims, _ = x.size()
-        x = x.transpose(2, 1).contiguous()
-        feature = x.view(batch_size * num_points, -1)[idx, :]
-        feature = feature.view(batch_size, num_points, self.k, num_dims)
-        x = x.view(batch_size, num_points, 1, num_dims).repeat(1, 1, self.k, 1)
-        delta_feats = x - feature
-        
-        feature1 = delta_feats.transpose(1, 3)
-        feature1 = feature1.to(device) 
-        feature_conv = self.conv(feature1).transpose(1, 3)
-        feature_softmax = torch.softmax(feature_conv, dim=2)
-        feature = torch.cat((x, feature_softmax * feature), dim=3).permute(0, 3, 1, 2).contiguous()
-        
-        return feature  
+def get_graph_feature(x, k=8, idx=None):
+    batch_size = x.size(0)
+    num_points = x.size(2)
+    x = x.view(batch_size, -1, num_points)
+    if idx is None:
+        idx_out = knn(x, k=k)
+    else:
+        idx_out = idx
+    device = x.device
+    idx_base = torch.arange(0, batch_size, device=device).view(-1, 1, 1)*num_points
+    idx = idx_out + idx_base
+    idx = idx.view(-1)
+    _, num_dims, _ = x.size()
+    x = x.transpose(2, 1).contiguous()
+    feature = x.view(batch_size*num_points, -1)[idx, :]
+    feature = feature.view(batch_size, num_points, k, num_dims)
+    x = x.view(batch_size, num_points, 1, num_dims).repeat(1, 1, k, 1) # bnkc
+    delta_feats = x - feature 
+    feature1 = delta_feats # .transpose(1,3) # bnkc
+    feature_softmax = torch.softmax(feature1,dim=2) # bnkc
+    feature = torch.cat((x, feature_softmax*feature), dim=3).permute(0, 3, 1, 2).contiguous()   # equ.(3)
+    return feature # bcnk
 
 
 class KNNFeats(nn.Module):
@@ -76,16 +63,22 @@ class KNNFeats(nn.Module):
             nn.BatchNorm2d(2*out_dim), nn.ReLU(),
             nn.Conv2d(2*out_dim, out_dim, kernel_size=1),
         )
-        self.mlp=nn.Sequential(
-            nn.Conv2d(in_dim, out_dim, 1),
-            nn.BatchNorm2d(out_dim),
-            nn.ReLU(True),
-            nn.Conv2d(out_dim, out_dim, 1),
-        )
-        self.get_graph_feature = GraphFeatureModule()
+        if use_bn:
+            self.mlp=nn.Sequential(
+                nn.Conv2d(in_dim, out_dim, 1),
+                nn.BatchNorm2d(out_dim),
+                nn.ReLU(True),
+                nn.Conv2d(out_dim, out_dim, 1),
+            )
+        else:
+            self.mlp=nn.Sequential(
+                nn.Conv2d(in_dim, out_dim, 1),
+                nn.ReLU(),
+                nn.Conv2d(out_dim, out_dim, 1),
+            )
 
     def forward(self, feats):
-        nn_feats=self.get_graph_feature(feats) # b*c*n*k
+        nn_feats=get_graph_feature(feats) # b*c*n*k
         nn_feats = self.cat_filter(nn_feats)
         nn_feats_out=self.mlp(nn_feats) # b*c*n*k 
         feats_out=torch.max(nn_feats_out, 3, keepdim=True)[0] # b*c*n*1
