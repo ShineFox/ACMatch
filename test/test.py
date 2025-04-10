@@ -8,7 +8,7 @@ from utils import compute_pose_error, pose_auc, estimate_pose_norm_kpts, estimat
 from config import get_config
 
 sys.path.append('../core')
-from convmatch import ConvMatch
+from acmatch import ACMatch
 
 torch.set_grad_enabled(False)
 torch.manual_seed(0)
